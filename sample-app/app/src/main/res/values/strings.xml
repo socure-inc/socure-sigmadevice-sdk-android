@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DeviceRiskApp</string>
+    <string name="risk">Upload and Get UUID</string>
+    <string name="upload_information">Get Device Risk Assessment</string>
+    <string name="basic_view">Basic View</string>
+    <string name="result">Result</string>
+    <string name="uuidKey">DeviceRiskUUID</string>
+</resources>
