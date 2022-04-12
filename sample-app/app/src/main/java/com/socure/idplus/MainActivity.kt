@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
         riskButton.setOnClickListener {
             Snackbar.make(layout, "Sending data", Snackbar.LENGTH_LONG).show()
-            deviceRiskManager?.sendData()
+            deviceRiskManager?.sendData(DeviceRiskManager.Context.Home) // please use the appropriate 'context' here
         }
 
         informationButton.setOnClickListener {

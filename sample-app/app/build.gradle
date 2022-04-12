@@ -11,9 +11,9 @@ android {
         applicationId "com.socure.idplus"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 10017
-        versionName "1.0.0.17"
-        setProperty("archivesBaseName", "app")
+        versionCode 11000
+        versionName "1.1.0"
+        setProperty("archivesBaseName", "device-risk-demo")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -77,7 +77,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.3.0'
 
-    implementation 'com.github.socure-inc:device-risk-android-sdk:1.0.0.17'
+    implementation 'com.github.socure-inc:device-risk-android-sdk:1.1.0'
     
     implementation 'com.google.android.gms:play-services-location:19.0.0'
     implementation 'androidx.ads:ads-identifier:1.0.0-alpha04'
