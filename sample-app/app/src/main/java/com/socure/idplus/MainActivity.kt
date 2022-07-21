@@ -106,11 +106,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale)
         //Accessibility
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accessibility)
-        //Bluetooth
-        //list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Bluetooth)
-
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Network)
-        //list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Exif)
 
         sharedPref = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
         uuid = sharedPref?.getString(getString(R.string.uuidKey), null)
@@ -140,9 +135,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     override fun dataUploadFinished(uploadResult: UploadResult) {
         this.uploadResult = uploadResult
-        if (uuid == null) {
-            this.uuid = uploadResult.uuid
-        }
+        this.uuid = uploadResult.uuid
 
         informationButton.isEnabled = true
         resultView.text = uploadResult.toString()
