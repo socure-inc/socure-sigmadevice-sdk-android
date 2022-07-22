@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
         setContentView(R.layout.main_activity)
 
-        Dexter.withActivity(this)
+        Dexter.withContext(this)
             .withPermissions(permissions)
             .withListener(this)
             .onSameThread()
