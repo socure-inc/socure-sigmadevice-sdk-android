@@ -143,6 +143,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     }
 
     override fun onError(errorType: DeviceRiskManager.SocureSDKErrorType, errorMessage: String?) {
+        Snackbar.make(layout, errorMessage!!, Snackbar.LENGTH_LONG).show()
 
     }
 
