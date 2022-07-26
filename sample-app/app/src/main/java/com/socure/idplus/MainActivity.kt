@@ -105,6 +105,8 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Advertising)
         //Locale
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale)
+
+        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Network)
         //Accessibility
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accessibility)
 
