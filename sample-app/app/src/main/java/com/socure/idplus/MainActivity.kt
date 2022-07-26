@@ -116,6 +116,8 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale)
 
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Network)
+        //Accessibility
+        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accessibility)
 
         sharedPref = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
         uuid = sharedPref?.getString(getString(R.string.uuidKey), null)
