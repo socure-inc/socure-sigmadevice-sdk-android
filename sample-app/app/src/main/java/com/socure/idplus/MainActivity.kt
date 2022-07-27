@@ -33,23 +33,14 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     private var sharedPref: SharedPreferences? = null
     private var deviceRiskManager: DeviceRiskManager? = null
     private var uploadResult: UploadResult? = null
-
-    private var result: String? = null
     private var uuid: String? = null
 
     private var informationUploader: InformationUploader? = null
 
     private val permissions = listOf(
-        Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.INTERNET,
-        Manifest.permission.ACCESS_NETWORK_STATE,
-        Manifest.permission.ACCESS_WIFI_STATE,
-        //Manifest.permission.BLUETOOTH,
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
-        //Manifest.permission.ACTIVITY_RECOGNITION
-        //Manifest.permission.READ_SECURE_SETTINGS
 
     )
 
@@ -58,7 +49,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
         setContentView(R.layout.main_activity)
 
-        Dexter.withActivity(this)
+        Dexter.withContext(this)
             .withPermissions(permissions)
             .withListener(this)
             .onSameThread()
@@ -102,12 +93,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         deviceRiskManager = DeviceRiskManager()
         val list = mutableListOf<DeviceRiskManager.DeviceRiskDataSourcesEnum>()
         //motion
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accelerometer)
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Magnetometer)
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Gyroscope)
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Rotation)
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Gravity)
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.MotionProximity)
+        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Motion)
         //info
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Device)
         //location
@@ -119,11 +105,10 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Advertising)
         //Locale
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale)
-        //Bluetooth
-        //list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Bluetooth)
 
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Network)
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Exif)
+        //Accessibility
+        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accessibility)
 
         sharedPref = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
         uuid = sharedPref?.getString(getString(R.string.uuidKey), null)
@@ -137,40 +122,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
             activity = this,
             callback = this
         )
-
-        /*
-        deviceRiskManager?.passMotionData(
-            accelerometerModel = AccelerometerModel(
-                0.5F,
-                0.5F,
-                0.5F
-            ),
-            magnetometerModel = MagnetometerModel(0.5F, 0.5F, 0.5F),
-            gyroscopeModel = GyroscopeModel(0.5F, 0.5F, 0.5F),
-            gravityModel = GravityModel(0.5F, 0.5F, 0.5F),
-            rotationModel = RotationModel(0.5F, 0.5F, 0.5F),
-            proximity = "5.0"
-        )
-
-        val passBluetoothData = deviceRiskManager?.passBluetoothData(
-            BluetoothModel(
-                mutableListOf(
-                    BluetoothDevice(
-                        "device 0",
-                        "device 0"
-                    )
-                )
-            )
-        )
-
-
-
-        deviceRiskManager?.passLocationData(LocationModel("12.3456879"))
-
-        deviceRiskManager?.passPedometerData(PedometerModel(stepsNumber = "0"))
-
-        deviceRiskManager?.passDocumentVerificationData(mutableListOf(Pair("asd", "1234")))
-        */
     }
 
 
@@ -187,23 +138,14 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     override fun dataUploadFinished(uploadResult: UploadResult) {
         this.uploadResult = uploadResult
-        if (uuid == null) {
-            this.uploadResult?.uuid?.let {
-                logSDK(TAG, it)
-                uuid = this.uploadResult?.uuid
-                deviceRiskManager?.setUUID(uuid)
-                with(sharedPref?.edit()) {
-                    this?.putString(getString(R.string.uuidKey), it)
-                    this?.commit()
-                }
-            }
-        }
+        this.uuid = uploadResult.uuid
 
         informationButton.isEnabled = true
         resultView.text = uploadResult.toString()
     }
 
     override fun onError(errorType: DeviceRiskManager.SocureSDKErrorType, errorMessage: String?) {
+        Snackbar.make(layout, errorMessage!!, Snackbar.LENGTH_LONG).show()
 
     }
 
