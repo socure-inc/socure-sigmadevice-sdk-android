@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         Manifest.permission.ACCESS_WIFI_STATE,
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
-        //Manifest.permission.READ_SECURE_SETTINGS
 
     )
 
