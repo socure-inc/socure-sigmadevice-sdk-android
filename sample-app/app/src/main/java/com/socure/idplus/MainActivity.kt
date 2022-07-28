@@ -24,17 +24,8 @@ import kotlinx.android.synthetic.main.main_activity.*
 class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     DeviceRiskManager.DataUploadCallback, Interfaces.InformationUploadCallback {
 
-    companion object {
-        const val TAG = "MainActivity"
-        private var PRIVATE_MODE = 0
-        private val PREF_NAME = "user_preferences.xml"
-    }
-
-    private var sharedPref: SharedPreferences? = null
     private var deviceRiskManager: DeviceRiskManager? = null
     private var uploadResult: UploadResult? = null
-
-    private var result: String? = null
     private var uuid: String? = null
 
     private var informationUploader: InformationUploader? = null
@@ -45,10 +36,8 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         Manifest.permission.INTERNET,
         Manifest.permission.ACCESS_NETWORK_STATE,
         Manifest.permission.ACCESS_WIFI_STATE,
-        //Manifest.permission.BLUETOOTH,
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
-        //Manifest.permission.ACTIVITY_RECOGNITION
         //Manifest.permission.READ_SECURE_SETTINGS
 
     )
@@ -58,7 +47,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
         setContentView(R.layout.main_activity)
 
-        Dexter.withActivity(this)
+        Dexter.withContext(this)
             .withPermissions(permissions)
             .withListener(this)
             .onSameThread()
@@ -118,11 +107,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Network)
         //Accessibility
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accessibility)
-
-        sharedPref = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
-        uuid = sharedPref?.getString(getString(R.string.uuidKey), null)
-
-        uuid?.let { logSDK(TAG, it) }
 
         deviceRiskManager?.setTracker(
             key = BuildConfig.SocurePublicKey,
