@@ -18,7 +18,7 @@ To install the SDK with Maven:
 1. Add the SDK dependency to the app's Gradle file:
 
 ```
-implementation 'com.github.socure-inc:device-risk-android-sdk:1.1.0'
+implementation 'com.github.socure-inc:device-risk-android-sdk:1.2.0'
 ```
 
 2. Add the Maven URL to the root/project level in `build.gradle`:
