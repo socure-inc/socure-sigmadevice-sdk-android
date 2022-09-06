@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     private var informationUploader: InformationUploader? = null
 
     private val permissions = listOf(
-        Manifest.permission.READ_PHONE_STATE,
-        Manifest.permission.READ_EXTERNAL_STORAGE,
+      /*  Manifest.permission.READ_PHONE_STATE,
+        Manifest.permission.READ_EXTERNAL_STORAGE,*/
         Manifest.permission.INTERNET,
         Manifest.permission.ACCESS_NETWORK_STATE,
         Manifest.permission.ACCESS_WIFI_STATE,
@@ -119,11 +119,13 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Advertising)
         //Locale
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale)
+        //Accessibility
+        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accessibility)
         //Bluetooth
         //list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Bluetooth)
 
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Network)
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Exif)
+        //list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Exif)
 
         sharedPref = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
         uuid = sharedPref?.getString(getString(R.string.uuidKey), null)
@@ -204,7 +206,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     }
 
     override fun onError(errorType: DeviceRiskManager.SocureSDKErrorType, errorMessage: String?) {
-
+        Snackbar.make(layout, "informationUploadError", Snackbar.LENGTH_LONG).show()
     }
 
     override fun informationUploadFinished(informationResponse: InformationResponse?) {
