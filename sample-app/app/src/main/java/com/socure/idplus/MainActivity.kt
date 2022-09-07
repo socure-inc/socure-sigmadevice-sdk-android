@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     private var informationUploader: InformationUploader? = null
 
     private val permissions = listOf(
-      /*  Manifest.permission.READ_PHONE_STATE,
-        Manifest.permission.READ_EXTERNAL_STORAGE,*/
+       // Manifest.permission.READ_PHONE_STATE,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.INTERNET,
         Manifest.permission.ACCESS_NETWORK_STATE,
         Manifest.permission.ACCESS_WIFI_STATE,
@@ -135,11 +135,9 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         deviceRiskManager?.setTracker(
             key = BuildConfig.SocurePublicKey,
             trackers = list,
-            userConsent = true,
             activity = this,
             callback = this
         )
-
         /*
         deviceRiskManager?.passMotionData(
             accelerometerModel = AccelerometerModel(
