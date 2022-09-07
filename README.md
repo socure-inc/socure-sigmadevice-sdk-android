@@ -43,7 +43,9 @@ import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
 
 4. It is advised to declare the `READ_EXTERNAL_STORAGE` permission in your app's `AndroidManifest.xml`. This is used by the Sigma Device SDK only to assess the size and free space of any external storage.
 
+```
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+```
 
 ## Configuration and usage
 
