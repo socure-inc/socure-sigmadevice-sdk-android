@@ -43,4 +43,4 @@ import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
 
 ## Configuration and usage
 
-For instructions on how to configure the SDK, see the [Android SDK documentation](https://developer.socure.com/guide/deviceandroidsdk) on DevHub.
+For instructions on how to configure the SDK, see the [Android SDK documentation](https://developer.socure.com/docs/sdks/sigma-device/android-sdk/android-overview) on DevHub.
