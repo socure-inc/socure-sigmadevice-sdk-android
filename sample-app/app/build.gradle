@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.socure.idplus"
-        minSdkVersion 29
+        minSdkVersion 21
         targetSdkVersion 33
         versionCode 11000
         versionName "1.1.0"
