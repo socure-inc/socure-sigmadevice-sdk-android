@@ -41,6 +41,14 @@ allprojects {
 import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
 ```
 
+4. Specify `android:allowBackup="true"` in your app's `AndroidManifest.xml`'s application attributes. This will improve persistence of issued deviceSessionIds when your app gets reinstalled for users who have enabled backup in their device settings.
+
+5. We advise that you declare the `READ_EXTERNAL_STORAGE` permission in your app's `AndroidManifest.xml`. The Sigma Device SDK uses this to assess the size and free space of any external storage.
+
+```
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+```
+
 ## Configuration and usage
 
 For instructions on how to configure the SDK, see the [Android SDK documentation](https://developer.socure.com/docs/sdks/sigma-device/android-sdk/android-overview) on DevHub.
