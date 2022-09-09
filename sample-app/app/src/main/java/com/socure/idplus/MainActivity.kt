@@ -1,7 +1,6 @@
 package com.socure.idplus
 
 import android.Manifest
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -11,7 +10,6 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.socure.idplus.devicerisk.androidsdk.Interfaces
-import com.socure.idplus.devicerisk.androidsdk.logSDK
 import com.socure.idplus.devicerisk.androidsdk.model.InformationRequest
 import com.socure.idplus.devicerisk.androidsdk.model.InformationResponse
 import com.socure.idplus.devicerisk.androidsdk.model.SocureSdkError
@@ -31,7 +29,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     private var informationUploader: InformationUploader? = null
 
     private val permissions = listOf(
-        Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.INTERNET,
         Manifest.permission.ACCESS_NETWORK_STATE,
@@ -110,7 +107,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         deviceRiskManager?.setTracker(
             key = BuildConfig.SocurePublicKey,
             trackers = list,
-            userConsent = true,
             activity = this,
             callback = this
         )
