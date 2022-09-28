@@ -1,7 +1,6 @@
 package com.socure.idplus
 
 import android.Manifest
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -26,11 +25,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     companion object {
         const val TAG = "MainActivity"
-        private var PRIVATE_MODE = 0
-        private val PREF_NAME = "user_preferences.xml"
     }
-
-    private var sharedPref: SharedPreferences? = null
     private var deviceRiskManager: DeviceRiskManager? = null
     private var uploadResult: UploadResult? = null
 
@@ -40,16 +35,13 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     private var informationUploader: InformationUploader? = null
 
     private val permissions = listOf(
-        Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.GET_ACCOUNTS,
         Manifest.permission.INTERNET,
         Manifest.permission.ACCESS_NETWORK_STATE,
         Manifest.permission.ACCESS_WIFI_STATE,
-        //Manifest.permission.BLUETOOTH,
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
-        //Manifest.permission.ACTIVITY_RECOGNITION
-        //Manifest.permission.READ_SECURE_SETTINGS
 
     )
 
@@ -58,7 +50,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
         setContentView(R.layout.main_activity)
 
-        Dexter.withActivity(this)
+        Dexter.withContext(this)
             .withPermissions(permissions)
             .withListener(this)
             .onSameThread()
@@ -119,25 +111,18 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Advertising)
         //Locale
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale)
-        //Bluetooth
-        //list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Bluetooth)
+        //Accessibility
+        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accessibility)
 
         list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Network)
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Exif)
 
-        sharedPref = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
-        uuid = sharedPref?.getString(getString(R.string.uuidKey), null)
-
-        uuid?.let { logSDK(TAG, it) }
 
         deviceRiskManager?.setTracker(
             key = BuildConfig.SocurePublicKey,
             trackers = list,
-            userConsent = true,
             activity = this,
             callback = this
         )
-
         /*
         deviceRiskManager?.passMotionData(
             accelerometerModel = AccelerometerModel(
@@ -152,24 +137,9 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
             proximity = "5.0"
         )
 
-        val passBluetoothData = deviceRiskManager?.passBluetoothData(
-            BluetoothModel(
-                mutableListOf(
-                    BluetoothDevice(
-                        "device 0",
-                        "device 0"
-                    )
-                )
-            )
-        )
-
-
-
         deviceRiskManager?.passLocationData(LocationModel("12.3456879"))
 
         deviceRiskManager?.passPedometerData(PedometerModel(stepsNumber = "0"))
-
-        deviceRiskManager?.passDocumentVerificationData(mutableListOf(Pair("asd", "1234")))
         */
     }
 
@@ -191,11 +161,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
             this.uploadResult?.uuid?.let {
                 logSDK(TAG, it)
                 uuid = this.uploadResult?.uuid
-                deviceRiskManager?.setUUID(uuid)
-                with(sharedPref?.edit()) {
-                    this?.putString(getString(R.string.uuidKey), it)
-                    this?.commit()
-                }
+
             }
         }
 
@@ -204,7 +170,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     }
 
     override fun onError(errorType: DeviceRiskManager.SocureSDKErrorType, errorMessage: String?) {
-
+        Snackbar.make(layout, "informationUploadError", Snackbar.LENGTH_LONG).show()
     }
 
     override fun informationUploadFinished(informationResponse: InformationResponse?) {
