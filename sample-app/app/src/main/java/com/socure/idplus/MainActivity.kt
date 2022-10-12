@@ -10,23 +10,19 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.socure.idplus.devicerisk.androidsdk.Interfaces
-import com.socure.idplus.devicerisk.androidsdk.model.InformationRequest
-import com.socure.idplus.devicerisk.androidsdk.model.InformationResponse
-import com.socure.idplus.devicerisk.androidsdk.model.SocureSdkError
-import com.socure.idplus.devicerisk.androidsdk.model.UploadResult
+import com.socure.idplus.devicerisk.androidsdk.model.*
 import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
+import com.socure.idplus.devicerisk.androidsdk.sensors.SocureSigmaDevice
 import com.socure.idplus.uploader.InformationUploader
 import kotlinx.android.synthetic.main.main_activity.*
 
 
 class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
-    DeviceRiskManager.DataUploadCallback, Interfaces.InformationUploadCallback {
+    Interfaces.InformationUploadCallback, SocureSigmaDevice.DataUploadCallback {
 
-    private var deviceRiskManager: DeviceRiskManager? = null
-    private var uploadResult: UploadResult? = null
+    private var uploadResult: SocureFingerprintResult? = null
     private var uuid: String? = null
-
-    private var informationUploader: InformationUploader? = null
+    val sigma = SocureSigmaDevice()
 
     private val permissions = listOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -51,65 +47,24 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
         riskButton.setOnClickListener {
             Snackbar.make(layout, "Sending data", Snackbar.LENGTH_LONG).show()
-            deviceRiskManager?.sendData(DeviceRiskManager.Context.Home) // please use the appropriate 'context' here
-        }
 
-        informationButton.setOnClickListener {
-            Snackbar.make(layout, "Sending Information", Snackbar.LENGTH_LONG).show()
-
-            val informationRequest = InformationRequest(
-                modules = null,
-                firstName = "John",
-                surName = "Smith",
-                email = "j.smith@example.com",
-                country = "us",
-                physicalAddress = "123 Example Street",
-                city = "New York City",
-                state = "NY",
-                zip = "10011",
-                mobileNumber = "+13475551234",
-                deviceSessionId = uuid
-            )
-
-            informationUploader = InformationUploader()
-            informationUploader?.initializeInformationUploader(
-                this,
-                this,
-                BuildConfig.idPlusKey,
-                informationRequest
-            )
+            val config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,SocureSigmaDevice.Context.Home,false,"",this)
+            config.activity = this
+            val options = SocureFingerPrintOptions(false,null)
+            sigma.fingerPrint(config,options,this)
+            //deviceRiskManager?.sendData(DeviceRiskManager.Context.Home) // please use the appropriate 'context' here
         }
 
         loadDeviceRiskManager()
     }
 
     private fun loadDeviceRiskManager(){
-        deviceRiskManager = DeviceRiskManager()
-        val list = mutableListOf<DeviceRiskManager.DeviceRiskDataSourcesEnum>()
-        //motion
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Motion)
-        //info
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Device)
-        //location
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Location)
-        //pedometer
-        //android not provide information from pedometer
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Pedometer)
-        //Advertising
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Advertising)
-        //Locale
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Locale)
 
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Network)
-        //Accessibility
-        list.add(DeviceRiskManager.DeviceRiskDataSourcesEnum.Accessibility)
+        val config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,SocureSigmaDevice.Context.Home,false,"",this)
+        config.activity = this
+        val options = SocureFingerPrintOptions(false,null)
+        sigma.fingerPrint(config,options,this)
 
-        deviceRiskManager?.setTracker(
-            key = BuildConfig.SocurePublicKey,
-            trackers = list,
-            activity = this,
-            callback = this
-        )
     }
 
 
@@ -124,17 +79,16 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     ) {
     }
 
-    override fun dataUploadFinished(uploadResult: UploadResult) {
+    override fun dataUploadFinished(uploadResult: SocureFingerprintResult) {
         this.uploadResult = uploadResult
-        this.uuid = uploadResult.uuid
+        this.uuid = uploadResult.deviceSessionID
 
         informationButton.isEnabled = true
         resultView.text = uploadResult.toString()
     }
 
-    override fun onError(errorType: DeviceRiskManager.SocureSDKErrorType, errorMessage: String?) {
+    override fun onError(errorType: SocureSigmaDevice.SocureSDKErrorType, errorMessage: String?) {
         Snackbar.make(layout, errorMessage!!, Snackbar.LENGTH_LONG).show()
-
     }
 
     override fun informationUploadFinished(informationResponse: InformationResponse?) {
