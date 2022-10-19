@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     private var uploadResult: SocureFingerprintResult? = null
     private var uuid: String? = null
     val sigma = SocureSigmaDevice()
+    lateinit var config: SocureSigmaDeviceConfig
+    lateinit var options: SocureFingerPrintOptions
 
     private val permissions = listOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -47,23 +49,16 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
         riskButton.setOnClickListener {
             Snackbar.make(layout, "Sending data", Snackbar.LENGTH_LONG).show()
-
-            val config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,SocureSigmaDevice.Context.Home,false,"",this)
-            config.activity = this
-            val options = SocureFingerPrintOptions(false,null)
             sigma.fingerPrint(config,options,this)
-            //deviceRiskManager?.sendData(DeviceRiskManager.Context.Home) // please use the appropriate 'context' here
         }
 
         loadDeviceRiskManager()
     }
 
     private fun loadDeviceRiskManager(){
-
-        val config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,SocureSigmaDevice.Context.Home,false,"",this)
+        config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,SocureSigmaDevice.Context.Home,false,"",this)
         config.activity = this
-        val options = SocureFingerPrintOptions(false,null)
-        sigma.fingerPrint(config,options,this)
+        options = SocureFingerPrintOptions(false,null)
 
     }
 
