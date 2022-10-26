@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     private fun loadDeviceRiskManager(){
         config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,SocureSigmaDevice.Context.Home,false,"",this)
-        config.activity = this
         options = SocureFingerPrintOptions(false,null)
 
     }
