@@ -13,6 +13,7 @@ import com.socure.idplus.devicerisk.androidsdk.Interfaces
 import com.socure.idplus.devicerisk.androidsdk.model.*
 import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
 import com.socure.idplus.devicerisk.androidsdk.sensors.SocureSigmaDevice
+import com.socure.idplus.devicerisk.androidsdk.uilts.SocureFingerPrintContext
 import com.socure.idplus.uploader.InformationUploader
 import kotlinx.android.synthetic.main.main_activity.*
 
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     private fun loadDeviceRiskManager(){
         config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,false,"",this)
-        options = SocureFingerPrintOptions(false,SocureSigmaDevice.Context.Home,null)
+        options = SocureFingerPrintOptions(false,SocureFingerPrintContext.Home(),null)
 
     }
 
@@ -81,7 +82,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         resultView.text = uploadResult.toString()
     }
 
-    override fun onError(errorType: SocureSigmaDevice.SocureSDKErrorType, errorMessage: String?) {
+    override fun onError(errorType: SocureSigmaDevice.SocureSigmaDeviceError, errorMessage: String?) {
         Snackbar.make(layout, errorMessage!!, Snackbar.LENGTH_LONG).show()
     }
 
