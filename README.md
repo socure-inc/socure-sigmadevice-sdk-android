@@ -5,8 +5,11 @@ Android applications.
 
 ## Minimum requirements
 
-- Android SDK version 21
+- Android Min SDK version 21
 - Minimum IDE: Android Studio
+- Android Target SDK 33
+- Kotlin 1.7.0 and above
+- Gradle 7.0 and above
 
 ## Installation
 
@@ -18,7 +21,7 @@ To install the SDK with Maven:
 1. Add the SDK dependency to the app's Gradle file:
 
 ```
-implementation 'com.github.socure-inc:device-risk-android-sdk:1.2.0'
+implementation 'com.github.socure-inc:device-risk-android-sdk:2.0.0'
 ```
 
 2. Add the Maven URL to the root/project level in `build.gradle`:
@@ -34,19 +37,28 @@ allprojects {
 }
 ```
 
-3. Import the SDK into your desired View Controller by adding the following line to import the
-   desired Sigma Device activity:
+3. Import the SDK into your desired View Controller by adding the following line to import the desired Sigma Device activity:
 
 ```
-import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
+import 
+com.socure.idplus.devicerisk.androidsdk.sensors.SocureSigmaDevice
 ```
 
-4. Specify `android:allowBackup="true"` in your app's `AndroidManifest.xml`'s application attributes. This will improve persistence of issued deviceSessionIds when your app gets reinstalled for users who have enabled backup in their device settings.
+4. Specify android:allowBackup="true" in your app's AndroidManifest.xml's application attributes. This will improve persistence of your `deviceSessionId` when your app gets reinstalled for clients who have enabled backup in their device settings.
 
-5. We advise that you declare the `READ_EXTERNAL_STORAGE` permission in your app's `AndroidManifest.xml`. The Sigma Device SDK uses this to assess the size and free space of any external storage.
+5. We advise that you declare the READ_EXTERNAL_STORAGE permission in your app's AndroidManifest.xml. The Sigma Device SDK uses this to assess the size and free space of any external storage:
 
 ```
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission 
+android:name="android.permission.READ_EXTERNAL_STORAGE" />
+```
+
+### Proguard Rules:
+
+If minify is enabled in gradle `minifyEnabled true` please add the following in your proguard rules:
+
+```
+-keep class com.socure.idplus.** { *; }
 ```
 
 ## Configuration and usage
