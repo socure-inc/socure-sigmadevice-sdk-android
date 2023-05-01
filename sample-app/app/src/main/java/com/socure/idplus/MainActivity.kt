@@ -11,10 +11,8 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.socure.idplus.devicerisk.androidsdk.Interfaces
 import com.socure.idplus.devicerisk.androidsdk.model.*
-import com.socure.idplus.devicerisk.androidsdk.sensors.DeviceRiskManager
 import com.socure.idplus.devicerisk.androidsdk.sensors.SocureSigmaDevice
 import com.socure.idplus.devicerisk.androidsdk.uilts.SocureFingerPrintContext
-import com.socure.idplus.uploader.InformationUploader
 import kotlinx.android.synthetic.main.main_activity.*
 
 
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     private fun loadDeviceRiskManager(){
         config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,false,"",this)
-        options = SocureFingerPrintOptions(false,SocureFingerPrintContext.Home(),null)
+        options = SocureFingerPrintOptions(false, SocureFingerPrintContext.Home(),null)
 
     }
 
