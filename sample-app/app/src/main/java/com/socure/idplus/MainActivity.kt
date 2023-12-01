@@ -9,12 +9,12 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.socure.idplus.databinding.MainActivityBinding
+import com.socure.idplus.devicerisk.androidsdk.common.application.SocureSigmaDeviceError
 import com.socure.idplus.devicerisk.androidsdk.model.SocureFingerPrintOptions
 import com.socure.idplus.devicerisk.androidsdk.model.SocureFingerprintResult
-import com.socure.idplus.devicerisk.androidsdk.model.SocureSigmaDeviceConfig
 import com.socure.idplus.devicerisk.androidsdk.sensors.SocureSigmaDevice
 import com.socure.idplus.devicerisk.androidsdk.uilts.SocureFingerPrintContext
-import kotlinx.android.synthetic.main.main_activity.*
 
 
 class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
@@ -22,9 +22,8 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     private var uploadResult: SocureFingerprintResult? = null
     private var uuid: String? = null
-    val sigma = SocureSigmaDevice()
-    lateinit var config: SocureSigmaDeviceConfig
     lateinit var options: SocureFingerPrintOptions
+    lateinit var viewBinding: MainActivityBinding
 
     private val permissions = listOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -38,23 +37,24 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.main_activity)
+        viewBinding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
 
         Dexter.withContext(this)
             .withPermissions(permissions)
             .withListener(this)
             .onSameThread()
             .check()
-        riskButton.setOnClickListener {
-            sigma.fingerPrint(config,options,this) }
+        SocureSigmaDevice.initializeSDK(this,BuildConfig.SocurePublicKey)
+        viewBinding.riskButton.setOnClickListener {
+            SocureSigmaDevice.fingerprint(options,this)
+        }
 
         loadDeviceRiskManager()
     }
 
     private fun loadDeviceRiskManager(){
-        config = SocureSigmaDeviceConfig(BuildConfig.SocurePublicKey,false,false,"","",this)
-        options = SocureFingerPrintOptions(false, SocureFingerPrintContext.Home(),null)
+        options = SocureFingerPrintOptions(false, SocureFingerPrintContext.Home(),"")
 
     }
 
@@ -68,13 +68,13 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     override fun dataUploadFinished(uploadResult: SocureFingerprintResult) {
         this.uploadResult = uploadResult
-        this.uuid = uploadResult.deviceSessionID
+        this.uuid = uploadResult.sessionToken
 
-        informationButton.isEnabled = true
-        resultView.text = uploadResult.toString()
+        viewBinding.informationButton.isEnabled = true
+        viewBinding.resultView.text = uploadResult.toString()
     }
 
-    override fun onError(errorType: SocureSigmaDevice.SocureSigmaDeviceError, errorMessage: String?) {
-        Snackbar.make(layout, errorMessage!!, Snackbar.LENGTH_LONG).show()
+    override fun onError(errorType: SocureSigmaDeviceError, errorMessage: String?) {
+        Snackbar.make(viewBinding.layout, errorMessage!!, Snackbar.LENGTH_LONG).show()
     }
 }
