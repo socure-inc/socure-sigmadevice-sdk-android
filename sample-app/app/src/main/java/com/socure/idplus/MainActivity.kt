@@ -10,19 +10,20 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.socure.idplus.databinding.MainActivityBinding
-import com.socure.idplus.devicerisk.androidsdk.common.application.SocureSigmaDeviceError
-import com.socure.idplus.devicerisk.androidsdk.model.SocureFingerPrintOptions
-import com.socure.idplus.devicerisk.androidsdk.model.SocureFingerprintResult
-import com.socure.idplus.devicerisk.androidsdk.sensors.SocureSigmaDevice
-import com.socure.idplus.devicerisk.androidsdk.uilts.SocureFingerPrintContext
+import com.socure.idplus.device.SocureFingerprintOptions
+import com.socure.idplus.device.SocureFingerprintResult
+import com.socure.idplus.device.SocureSigmaDevice
+import com.socure.idplus.device.callback.DataUploadCallback
+import com.socure.idplus.device.context.SocureFingerprintContext
+import com.socure.idplus.device.error.SocureSigmaDeviceError
 
 
 class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
-    SocureSigmaDevice.DataUploadCallback {
+    DataUploadCallback {
 
     private var uploadResult: SocureFingerprintResult? = null
     private var uuid: String? = null
-    lateinit var options: SocureFingerPrintOptions
+    lateinit var options: SocureFingerprintOptions
     lateinit var viewBinding: MainActivityBinding
 
     private val permissions = listOf(
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     }
 
     private fun loadDeviceRiskManager(){
-        options = SocureFingerPrintOptions(false, SocureFingerPrintContext.Home(),"")
+        options = SocureFingerprintOptions(false, SocureFingerprintContext.Home(),"")
 
     }
 
