@@ -20,6 +20,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
         maven {
             url "https://nexus.us-east-1.build.socure.link/repository/maven-releases-whitesource/"
         }
