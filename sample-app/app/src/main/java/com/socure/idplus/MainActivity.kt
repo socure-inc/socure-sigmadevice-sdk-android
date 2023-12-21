@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
             .withListener(this)
             .onSameThread()
             .check()
-        SocureSigmaDevice.initializeSDK(this,BuildConfig.SocurePublicKey)
         viewBinding.riskButton.setOnClickListener {
             SocureSigmaDevice.fingerprint(options,this)
         }
