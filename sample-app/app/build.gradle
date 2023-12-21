@@ -5,13 +5,12 @@ apply plugin: 'kotlin-kapt'
 android {
     namespace "com.socure.idplus"
     compileSdk 34
-    buildToolsVersion = "31.0.0"
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 42
-        versionName "4.2.0"
+        versionCode 40
+        versionName "4.0.0"
         setProperty("archivesBaseName", "device-risk-demo")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,7 +57,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.socure.idplus'
 
     applicationVariants.configureEach { variant ->
         variant.outputs.all {
@@ -81,7 +79,6 @@ dependencies {
 
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation 'com.karumi:dexter:6.2.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10'
 
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     androidTestImplementation "androidx.arch.core:core-testing:2.2.0"

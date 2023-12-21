@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     DataUploadCallback {
 
     private var uploadResult: SocureFingerprintResult? = null
-    private var uuid: String? = null
     lateinit var options: SocureFingerprintOptions
     lateinit var viewBinding: MainActivityBinding
 
@@ -46,16 +45,15 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
             .withListener(this)
             .onSameThread()
             .check()
-        viewBinding.riskButton.setOnClickListener {
+
+        options = SocureFingerprintOptions(
+            false,
+            SocureFingerprintContext.Home(),
+            ""
+        )
+        viewBinding.fingerprintButton.setOnClickListener {
             SocureSigmaDevice.fingerprint(options,this)
         }
-
-        loadDeviceRiskManager()
-    }
-
-    private fun loadDeviceRiskManager(){
-        options = SocureFingerprintOptions(false, SocureFingerprintContext.Home(),"")
-
     }
 
 
@@ -68,13 +66,12 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
 
     override fun dataUploadFinished(uploadResult: SocureFingerprintResult) {
         this.uploadResult = uploadResult
-        this.uuid = uploadResult.sessionToken
-
-        viewBinding.informationButton.isEnabled = true
         viewBinding.resultView.text = uploadResult.toString()
     }
 
     override fun onError(errorType: SocureSigmaDeviceError, errorMessage: String?) {
-        Snackbar.make(viewBinding.layout, errorMessage!!, Snackbar.LENGTH_LONG).show()
+        if(!errorMessage.isNullOrEmpty()){
+            Snackbar.make(viewBinding.layout, errorMessage, Snackbar.LENGTH_LONG).show()
+        }
     }
 }
