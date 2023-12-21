@@ -29,7 +29,6 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "SocurePublicKey", localProperties['socure.public.key']
-            buildConfigField "String", "idPlusKey", localProperties['id.plus.key']
             buildConfigField "String", "CERT_PIN_SOCURE", localProperties['cert.pin.socure']
             buildConfigField "String", "CERT_PIN_AMAZON_INTERMEDIATE", localProperties['cert.pin.amazon.intermediate']
             buildConfigField "String", "CERT_PIN_AMAZON_ROOT", localProperties['cert.pin.amazon.root']
@@ -38,7 +37,6 @@ android {
 
         stage {
             buildConfigField "String", "SocurePublicKey", localProperties['socure.public.key']
-            buildConfigField "String", "idPlusKey", localProperties['id.plus.key']
             buildConfigField "String", "CERT_PIN_SOCURE", localProperties['cert.pin.socure']
             buildConfigField "String", "CERT_PIN_AMAZON_INTERMEDIATE", localProperties['cert.pin.amazon.intermediate']
             buildConfigField "String", "CERT_PIN_AMAZON_ROOT", localProperties['cert.pin.amazon.root']
@@ -47,7 +45,6 @@ android {
 
         release {
             buildConfigField "String", "SocurePublicKey", localProperties['socure.public.key']
-            buildConfigField "String", "idPlusKey", localProperties['id.plus.key']
             buildConfigField "String", "CERT_PIN_SOCURE", localProperties['cert.pin.socure']
             buildConfigField "String", "CERT_PIN_AMAZON_INTERMEDIATE", localProperties['cert.pin.amazon.intermediate']
             buildConfigField "String", "CERT_PIN_AMAZON_ROOT", localProperties['cert.pin.amazon.root']
