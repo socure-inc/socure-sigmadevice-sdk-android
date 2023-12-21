@@ -68,12 +68,12 @@ android {
 }
 
 dependencies {
-    //implementation "com.socure.devicerisk.sdk:socure-devicerisk:4.0.0_pre_release_3"
+    implementation "com.socure.devicerisk.sdk:socure-devicerisk:4.0.0_pre_release_3"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation project(path: ':device-risk-sdk')
+    //implementation project(path: ':device-risk-sdk')
     //implementation 'com.github.socure-inc:device-risk-android-sdk:1.2.1'
 
     testImplementation 'junit:junit:4.13.2'
