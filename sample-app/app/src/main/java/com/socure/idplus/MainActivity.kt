@@ -9,6 +9,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.socure.idplus.Constants.UNKNOWN_ERROR
 import com.socure.idplus.databinding.MainActivityBinding
 import com.socure.idplus.device.SocureFingerprintOptions
 import com.socure.idplus.device.SocureFingerprintResult
@@ -18,8 +19,7 @@ import com.socure.idplus.device.context.SocureFingerprintContext
 import com.socure.idplus.device.error.SocureSigmaDeviceError
 
 
-class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
-    DataUploadCallback {
+class MainActivity : AppCompatActivity(), MultiplePermissionsListener, DataUploadCallback {
 
     private var uploadResult: SocureFingerprintResult? = null
     lateinit var options: SocureFingerprintOptions
@@ -40,19 +40,14 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
         viewBinding = MainActivityBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        Dexter.withContext(this)
-            .withPermissions(permissions)
-            .withListener(this)
-            .onSameThread()
+        Dexter.withContext(this).withPermissions(permissions).withListener(this).onSameThread()
             .check()
 
         options = SocureFingerprintOptions(
-            false,
-            SocureFingerprintContext.Home(),
-            ""
+            false, SocureFingerprintContext.Home(), ""
         )
         viewBinding.fingerprintButton.setOnClickListener {
-            SocureSigmaDevice.fingerprint(options,this)
+            SocureSigmaDevice.fingerprint(options, this)
         }
     }
 
@@ -60,9 +55,9 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {}
 
     override fun onPermissionRationaleShouldBeShown(
-        p0: MutableList<PermissionRequest>?,
-        p1: PermissionToken?
-    ) {}
+        p0: MutableList<PermissionRequest>?, p1: PermissionToken?
+    ) {
+    }
 
     override fun dataUploadFinished(uploadResult: SocureFingerprintResult) {
         this.uploadResult = uploadResult
@@ -70,8 +65,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener,
     }
 
     override fun onError(errorType: SocureSigmaDeviceError, errorMessage: String?) {
-        if(!errorMessage.isNullOrEmpty()){
-            Snackbar.make(viewBinding.layout, errorMessage, Snackbar.LENGTH_LONG).show()
-        }
+        val error = if (!errorMessage.isNullOrEmpty()) errorMessage else UNKNOWN_ERROR
+        Snackbar.make(viewBinding.layout, error, Snackbar.LENGTH_LONG).show()
     }
 }

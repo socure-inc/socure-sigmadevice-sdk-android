@@ -1,9 +1,6 @@
 package com.socure.idplus
 
-class Constants {
+object Constants {
 
-    companion object {
-        var CERT_PIN_DOMAIN = "upload.socure.com"
-
-    }
+    const val UNKNOWN_ERROR = "unknown error"
 }
