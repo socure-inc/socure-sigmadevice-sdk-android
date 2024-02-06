@@ -49,7 +49,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.socure.devicerisk.sdk:socure-devicerisk:3.9.1'
+    implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.0.0-pre-release-DocV'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.12.0'
