@@ -11,18 +11,15 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.socure.idplus.Constants.UNKNOWN_ERROR
 import com.socure.idplus.databinding.MainActivityBinding
-import com.socure.idplus.device.SocureFingerprintOptions
-import com.socure.idplus.device.SocureFingerprintResult
-import com.socure.idplus.device.SocureSigmaDevice
-import com.socure.idplus.device.callback.DataUploadCallback
-import com.socure.idplus.device.context.SocureFingerprintContext
-import com.socure.idplus.device.error.SocureSigmaDeviceError
+import com.socure.idplus.device.SigmaDevice
+import com.socure.idplus.device.callback.SessionTokenCallback
+import com.socure.idplus.device.callback.SigmaDeviceCallback
+import com.socure.idplus.device.context.SigmaDeviceContext
+import com.socure.idplus.device.error.SigmaDeviceError
 
 
-class MainActivity : AppCompatActivity(), MultiplePermissionsListener, DataUploadCallback {
+class MainActivity : AppCompatActivity(), MultiplePermissionsListener, SigmaDeviceCallback {
 
-    private var uploadResult: SocureFingerprintResult? = null
-    lateinit var options: SocureFingerprintOptions
     lateinit var viewBinding: MainActivityBinding
 
     private val permissions = listOf(
@@ -42,12 +39,19 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener, DataUploa
 
         Dexter.withContext(this).withPermissions(permissions).withListener(this).onSameThread()
             .check()
-
-        options = SocureFingerprintOptions(
-            false, SocureFingerprintContext.Home(), ""
-        )
         viewBinding.fingerprintButton.setOnClickListener {
-            SocureSigmaDevice.fingerprint(options, this)
+            SigmaDevice.processDevice(SigmaDeviceContext.Login(), object  : SessionTokenCallback{
+                override fun onComplete(sessionToken: String) {
+                    val token = sessionToken
+                    viewBinding.resultView.text = sessionToken
+                }
+
+                override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
+                    val error = if (!errorMessage.isNullOrEmpty()) errorMessage else UNKNOWN_ERROR
+                    Snackbar.make(viewBinding.layout, error, Snackbar.LENGTH_LONG).show()
+                }
+
+            })
         }
     }
 
@@ -59,12 +63,12 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener, DataUploa
     ) {
     }
 
-    override fun dataUploadFinished(uploadResult: SocureFingerprintResult) {
-        this.uploadResult = uploadResult
-        viewBinding.resultView.text = uploadResult.toString()
+    override fun onSessionCreated(sessionToken: String) {
+        val token = sessionToken
+        viewBinding.resultView.text = sessionToken
     }
 
-    override fun onError(errorType: SocureSigmaDeviceError, errorMessage: String?) {
+    override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
         val error = if (!errorMessage.isNullOrEmpty()) errorMessage else UNKNOWN_ERROR
         Snackbar.make(viewBinding.layout, error, Snackbar.LENGTH_LONG).show()
     }
