@@ -14,13 +14,17 @@ class MainApplication : Application() {
         val option = SigmaDeviceOptions(false,"")
         SigmaDevice.initializeSDK(this, BuildConfig.SocurePublicKey, option, object : SigmaDeviceCallback {
             override fun onSessionCreated(sessionToken: String) {
-                Log.d("TAG", "onSessionCreated: ")
+                Log.d(TAG, "onSessionCreated: $sessionToken")
             }
 
             override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
-                Log.d("TAG", "onSessionCreated: ")
+                Log.d(TAG, "errorType: ${errorType.name} & errorMessage:${errorMessage}")
             }
 
         })
+    }
+
+    companion object{
+        private const val TAG = "MainApplication"
     }
 }

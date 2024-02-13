@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">DeviceRiskApp</string>
-    <string name="risk">Device Fingerprint</string>
+    <string name="risk">Process Device</string>
     <string name="basic_view">Socure</string>
     <string name="result">Result</string>
 </resources>

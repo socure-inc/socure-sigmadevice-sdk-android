@@ -13,12 +13,11 @@ import com.socure.idplus.Constants.UNKNOWN_ERROR
 import com.socure.idplus.databinding.MainActivityBinding
 import com.socure.idplus.device.SigmaDevice
 import com.socure.idplus.device.callback.SessionTokenCallback
-import com.socure.idplus.device.callback.SigmaDeviceCallback
 import com.socure.idplus.device.context.SigmaDeviceContext
 import com.socure.idplus.device.error.SigmaDeviceError
 
 
-class MainActivity : AppCompatActivity(), MultiplePermissionsListener, SigmaDeviceCallback {
+class MainActivity : AppCompatActivity(), MultiplePermissionsListener{
 
     lateinit var viewBinding: MainActivityBinding
 
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener, SigmaDevi
         viewBinding.fingerprintButton.setOnClickListener {
             SigmaDevice.processDevice(SigmaDeviceContext.Login(), object  : SessionTokenCallback{
                 override fun onComplete(sessionToken: String) {
-                    val token = sessionToken
                     viewBinding.resultView.text = sessionToken
                 }
 
@@ -61,15 +59,5 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener, SigmaDevi
     override fun onPermissionRationaleShouldBeShown(
         p0: MutableList<PermissionRequest>?, p1: PermissionToken?
     ) {
-    }
-
-    override fun onSessionCreated(sessionToken: String) {
-        val token = sessionToken
-        viewBinding.resultView.text = sessionToken
-    }
-
-    override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
-        val error = if (!errorMessage.isNullOrEmpty()) errorMessage else UNKNOWN_ERROR
-        Snackbar.make(viewBinding.layout, error, Snackbar.LENGTH_LONG).show()
     }
 }
