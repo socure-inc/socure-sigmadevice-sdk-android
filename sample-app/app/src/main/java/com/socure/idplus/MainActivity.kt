@@ -58,6 +58,5 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener{
 
     override fun onPermissionRationaleShouldBeShown(
         p0: MutableList<PermissionRequest>?, p1: PermissionToken?
-    ) {
-    }
+    ) {}
 }
