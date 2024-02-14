@@ -1,2 +1,1 @@
 include ':app'
-rootProject.name = "Device Risk Sample App"

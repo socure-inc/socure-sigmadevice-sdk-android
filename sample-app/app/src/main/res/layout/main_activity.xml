@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/riskButton"
+        android:id="@+id/processDeviceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -31,24 +31,10 @@
         android:text="@string/risk"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/informationButton"
+        app:layout_constraintBottom_toTopOf="@id/resultTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/basicView" />
-
-    <Button
-        android:id="@+id/informationButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/button_primary"
-        android:text="@string/upload_information"
-        android:enabled="false"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/riskButton" />
 
     <TextView
         android:id="@+id/resultTitle"
@@ -61,7 +47,7 @@
         android:textColor="@color/white"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/informationButton" />
+        app:layout_constraintTop_toBottomOf="@id/processDeviceButton" />
 
     <TextView
         android:id="@+id/resultView"
