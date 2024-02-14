@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener{
 
         Dexter.withContext(this).withPermissions(permissions).withListener(this).onSameThread()
             .check()
-        viewBinding.fingerprintButton.setOnClickListener {
+        viewBinding.processDeviceButton.setOnClickListener {
             SigmaDevice.processDevice(SigmaDeviceContext.Login(), object  : SessionTokenCallback{
                 override fun onComplete(sessionToken: String) {
                     viewBinding.resultView.text = sessionToken

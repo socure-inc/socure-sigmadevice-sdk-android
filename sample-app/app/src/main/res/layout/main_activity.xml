@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/fingerprintButton"
+        android:id="@+id/processDeviceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -47,7 +47,7 @@
         android:textColor="@color/white"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/fingerprintButton" />
+        app:layout_constraintTop_toBottomOf="@id/processDeviceButton" />
 
     <TextView
         android:id="@+id/resultView"
