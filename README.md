@@ -50,6 +50,7 @@ If minify is enabled in Gradle `minifyEnabled true` add the following in your pr
 ```
 
 ## Configuration and usage
+For instructions on how to configure the SDK, see the [android SDK documentation](https://developer.socure.com/docs/sdks/sigma-device/android-sdk/) on DevHub.
 
 The Device Risk Android SDK's main class is `SigmaDevice`. At a high level the SDK provides the following methods to collect data to send it to the Socure backend:
 
