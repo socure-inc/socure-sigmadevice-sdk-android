@@ -50,4 +50,4 @@ If minify is enabled in Gradle `minifyEnabled true` add the following in your pr
 ```
 
 ## Configuration and usage
-For instructions on how to configure the SDK, see the [android SDK documentation](https://developer.socure.com/docs/sdks/sigma-device/android-sdk/) on DevHub.
+For instructions on how to configure the SDK, see the [Android SDK documentation](https://developer.socure.com/docs/sdks/sigma-device/android-sdk/) on DevHub.
