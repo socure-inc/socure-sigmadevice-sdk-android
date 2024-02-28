@@ -11,7 +11,7 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val option = SigmaDeviceOptions(false, "")
+        val option = SigmaDeviceOptions()
         SigmaDevice.initializeSDK(
             this,
             BuildConfig.SocurePublicKey,

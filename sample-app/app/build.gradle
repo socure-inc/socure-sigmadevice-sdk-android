@@ -19,8 +19,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility 17
+        targetCompatibility 17
     }
 
     def localProperties = new Properties()
@@ -49,8 +49,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.0.0'
+    //implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.0.0'
 
+    implementation project(path: ':device-risk-sdk')
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation 'com.karumi:dexter:6.2.1'
 
