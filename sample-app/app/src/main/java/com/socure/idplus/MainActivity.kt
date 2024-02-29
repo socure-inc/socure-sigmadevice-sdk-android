@@ -2,6 +2,7 @@ package com.socure.idplus
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.karumi.dexter.Dexter
@@ -11,7 +12,9 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.socure.idplus.databinding.MainActivityBinding
 import com.socure.idplus.device.SigmaDevice
+import com.socure.idplus.device.SigmaDeviceOptions
 import com.socure.idplus.device.callback.SessionTokenCallback
+import com.socure.idplus.device.callback.SigmaDeviceCallback
 import com.socure.idplus.device.error.SigmaDeviceError
 
 class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
@@ -34,7 +37,8 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
 
         Dexter.withContext(this).withPermissions(permissions).withListener(this).onSameThread()
             .check()
-        viewBinding.processDeviceButton.setOnClickListener {
+        viewBinding.sessionTokenButton.setOnClickListener {
+            viewBinding.resultView.text = getString(R.string.fetch)
             SigmaDevice.getSessionToken(object : SessionTokenCallback {
                 override fun onComplete(sessionToken: String) {
                     viewBinding.resultView.text = sessionToken
@@ -46,6 +50,25 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
                 }
             })
         }
+        initializeDeviceRisk()
+    }
+
+    private fun initializeDeviceRisk() {
+        val option = SigmaDeviceOptions()
+        SigmaDevice.initializeSDK(
+            this,
+            BuildConfig.SocurePublicKey,
+            option,
+            object : SigmaDeviceCallback {
+                override fun onSessionCreated(sessionToken: String) {
+                    viewBinding.resultView.text = sessionToken
+                }
+
+                override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
+                    val error = if (!errorMessage.isNullOrEmpty()) errorMessage else UNKNOWN_ERROR
+                    Snackbar.make(viewBinding.layout, error, Snackbar.LENGTH_LONG).show()
+                }
+            })
     }
 
     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {}
