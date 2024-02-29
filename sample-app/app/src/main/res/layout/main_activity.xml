@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@color/orange"
-        android:text="@string/risk"
+        android:text="@string/button_label"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/resultTitle"

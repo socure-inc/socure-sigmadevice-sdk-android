@@ -22,9 +22,11 @@ class MainApplication : Application() {
                 }
 
                 override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
-                    Log.d(TAG, "errorType: ${errorType.name} & errorMessage:${errorMessage}")
+                    Log.d(
+                        TAG,
+                        "onError: errorType: ${errorType.name} errorMessage: $errorMessage"
+                    )
                 }
-
             })
     }
 
