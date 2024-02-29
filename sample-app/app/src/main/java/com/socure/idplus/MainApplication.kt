@@ -11,6 +11,23 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        val option = SigmaDeviceOptions()
+        SigmaDevice.initializeSDK(
+            this,
+            BuildConfig.SocurePublicKey,
+            option,
+            object : SigmaDeviceCallback {
+                override fun onSessionCreated(sessionToken: String) {
+                    Log.d(TAG, "onSessionCreated: $sessionToken")
+                }
+
+                override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
+                    Log.d(
+                        TAG,
+                        "onError: errorType: ${errorType.name} errorMessage: $errorMessage"
+                    )
+                }
+            })
     }
 
     companion object {
