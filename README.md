@@ -4,8 +4,8 @@ This document details the integration steps required to integrate the Device Ris
 
 ## What's new in version 4.1.0
 
-- `SessionToken` has been added as part of the security enhancement.
-- We have added an additional `initializeSDK()` call that initializes the SDK.
+- The `getSessionToken()` call retrieves the latest `sessionToken`.
+- Added the `SigmaDeviceOptions.useSocureGov` configuration option to configure the SDK to communicate with the SocureGov backend. This only applies to customers provisioned in the SocureGov environment.
 
 ## Minimum requirements
 
