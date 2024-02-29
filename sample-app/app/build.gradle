@@ -49,9 +49,8 @@ android {
 }
 
 dependencies {
-    //implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.0.0'
+    implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.1.0'
 
-    implementation project(path: ':device-risk-sdk')
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation 'com.karumi:dexter:6.2.1'
 
