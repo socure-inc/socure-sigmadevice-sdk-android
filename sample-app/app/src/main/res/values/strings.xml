@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DeviceRiskApp</string>
-    <string name="button_label">Process Device</string>
+    <string name="button_label">Get Session Token</string>
+    <string name="fetch">Fetching Session Token...</string>
     <string name="basic_view">Socure</string>
     <string name="result">Result</string>
 </resources>
