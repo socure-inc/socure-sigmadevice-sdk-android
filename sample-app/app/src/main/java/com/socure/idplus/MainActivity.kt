@@ -12,9 +12,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.socure.idplus.databinding.MainActivityBinding
 import com.socure.idplus.device.SigmaDevice
 import com.socure.idplus.device.callback.SessionTokenCallback
-import com.socure.idplus.device.context.SigmaDeviceContext
 import com.socure.idplus.device.error.SigmaDeviceError
-
 
 class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
 
@@ -27,7 +25,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
         Manifest.permission.ACCESS_WIFI_STATE,
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
-
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +52,7 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
 
     override fun onPermissionRationaleShouldBeShown(
         p0: MutableList<PermissionRequest>?, p1: PermissionToken?
-    ) {
-    }
+    ) {}
 
     companion object {
         const val UNKNOWN_ERROR = "unknown error"
