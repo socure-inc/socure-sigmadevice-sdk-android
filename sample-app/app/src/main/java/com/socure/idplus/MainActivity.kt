@@ -50,25 +50,6 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
                 }
             })
         }
-        initializeDeviceRisk()
-    }
-
-    private fun initializeDeviceRisk() {
-        val option = SigmaDeviceOptions()
-        SigmaDevice.initializeSDK(
-            this,
-            BuildConfig.SocurePublicKey,
-            option,
-            object : SigmaDeviceCallback {
-                override fun onSessionCreated(sessionToken: String) {
-                    viewBinding.resultView.text = sessionToken
-                }
-
-                override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
-                    val error = if (!errorMessage.isNullOrEmpty()) errorMessage else UNKNOWN_ERROR
-                    Snackbar.make(viewBinding.layout, error, Snackbar.LENGTH_LONG).show()
-                }
-            })
     }
 
     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {}
