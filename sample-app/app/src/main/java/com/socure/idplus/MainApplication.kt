@@ -14,7 +14,7 @@ class MainApplication : Application() {
         val option = SigmaDeviceOptions()
         SigmaDevice.initializeSDK(
             this,
-            BuildConfig.SocurePublicKey,
+            "YOUR SDK KEY HERE",
             option,
             object : SigmaDeviceCallback {
                 override fun onSessionCreated(sessionToken: String) {
