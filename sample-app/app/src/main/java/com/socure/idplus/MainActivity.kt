@@ -37,26 +37,32 @@ class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
 
         Dexter.withContext(this).withPermissions(permissions).withListener(this).onSameThread()
             .check()
+        fetchSessionToken()
         viewBinding.sessionTokenButton.setOnClickListener {
             viewBinding.resultView.text = getString(R.string.fetch)
-            SigmaDevice.getSessionToken(object : SessionTokenCallback {
-                override fun onComplete(sessionToken: String) {
-                    viewBinding.resultView.text = sessionToken
-                }
-
-                override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
-                    val error = if (!errorMessage.isNullOrEmpty()) errorMessage else UNKNOWN_ERROR
-                    Snackbar.make(viewBinding.layout, error, Snackbar.LENGTH_LONG).show()
-                }
-            })
+            fetchSessionToken()
         }
+    }
+
+    private fun fetchSessionToken() {
+        SigmaDevice.getSessionToken(object : SessionTokenCallback {
+            override fun onComplete(sessionToken: String) {
+                viewBinding.resultView.text = sessionToken
+            }
+
+            override fun onError(errorType: SigmaDeviceError, errorMessage: String?) {
+                val error = if (!errorMessage.isNullOrEmpty()) errorMessage else UNKNOWN_ERROR
+                Snackbar.make(viewBinding.layout, error, Snackbar.LENGTH_LONG).show()
+            }
+        })
     }
 
     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {}
 
     override fun onPermissionRationaleShouldBeShown(
         p0: MutableList<PermissionRequest>?, p1: PermissionToken?
-    ) {}
+    ) {
+    }
 
     companion object {
         const val UNKNOWN_ERROR = "unknown error"
