@@ -2,9 +2,9 @@
 
 This document details the integration steps required to integrate the Device Risk Android SDK into your application or library.
 
-## What's new in version 4.2.0
+## What's new in version 4.2.2
 
-- Added the `SigmaDeviceOptions.configBaseUrl` configuration option to allow proxying of the Socure endpoints.
+- Bug Fixes and Improvements.
 
 ## Minimum requirements
 
@@ -35,7 +35,7 @@ allprojects {
 2. Add the SDK dependency to the app's gradle file, make sure to set the version number to the latest one:
 
 ```
-implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.2.0'
+implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.2.2'
 ```
 
 4. Specify `android:allowBackup="true"` in your app's `AndroidManifest.xml` application attributes. This will improve persistence of your `sessionToken` when your app gets reinstalled for clients who have enabled backup in their device settings.
