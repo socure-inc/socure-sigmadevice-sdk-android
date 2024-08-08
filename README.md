@@ -5,7 +5,7 @@ This document details the integration steps required to integrate the Device Ris
 ## What's new in version 4.3.0
 
 - Improved the stability and reliability of the SDK.
-- Added support for the TCP Analyzer.
+-  Added support for capturing Additional network features.
 - Fixed `InitializeSDK()` callbacks when called multiple times.
 
 ## Minimum requirements
