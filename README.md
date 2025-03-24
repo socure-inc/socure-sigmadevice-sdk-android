@@ -4,8 +4,7 @@ This document details the integration steps required to integrate the Device Ris
 
 ## What's new in version 4.5.1
 
-- Added `pauseDataCollection()`/`resumeDataCollection()` methods to control when data is collected.
-- Added customerSessionId Support.
+- Fixed the minor bugs in the SDK.
 
 ## Minimum requirements
 
