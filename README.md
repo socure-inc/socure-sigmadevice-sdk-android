@@ -4,7 +4,7 @@ This document details the integration steps required to integrate the Device Ris
 
 ## What's new in version 4.5.1
 
-- Fixed the minor bugs in the SDK.
+- Improved event handling and consistency across the SDK.
 
 ## Minimum requirements
 
