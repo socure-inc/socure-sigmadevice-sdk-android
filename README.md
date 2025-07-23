@@ -2,9 +2,12 @@
 
 This document details the integration steps required to integrate the Device Risk Android SDK into your application or library.
 
-## What's new in version 4.6.0
+## What's new in version 4.6.1
 
-- Adds support for Silent Network Authentication.
+This release includes the following bug fies:
+
+- Make `customerSessionId` an optional parameter of `SigmaDevice.createNewSession()`.
+- Gracefully handle missing permissions for Silent Network Authentication.
 
 ## Minimum requirements
 
@@ -35,7 +38,7 @@ allprojects {
 2. Add the SDK dependency to the app's gradle file, make sure to set the version number to the latest one:
 
 ```
-implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.6.0'
+implementation 'com.socure.devicerisk.sdk:socure-devicerisk:4.6.1'
 ```
 
 4. Specify `android:allowBackup="true"` in your app's `AndroidManifest.xml` application attributes. This will improve persistence of your `sessionToken` when your app gets reinstalled for clients who have enabled backup in their device settings.
@@ -49,4 +52,4 @@ If minify is enabled in Gradle `minifyEnabled true` add the following in your pr
 ```
 
 ## Configuration and usage
-For instructions on how to configure the SDK, see the [Android SDK documentation](https://developer.socure.com/docs/sdks/sigma-device/android-sdk/) on DevHub.
+For instructions on how to configure the SDK, see the [Android SDK documentation](https://developer.socure.com/docs/sdks/digital-intelligence/android-sdk) on DevHub.
