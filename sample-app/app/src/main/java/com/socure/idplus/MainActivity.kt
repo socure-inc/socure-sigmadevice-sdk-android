@@ -2,7 +2,6 @@ package com.socure.idplus
 
 import android.Manifest
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.karumi.dexter.Dexter
@@ -12,9 +11,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.socure.idplus.databinding.MainActivityBinding
 import com.socure.idplus.device.SigmaDevice
-import com.socure.idplus.device.SigmaDeviceOptions
 import com.socure.idplus.device.callback.SessionTokenCallback
-import com.socure.idplus.device.callback.SigmaDeviceCallback
 import com.socure.idplus.device.error.SigmaDeviceError
 
 class MainActivity : AppCompatActivity(), MultiplePermissionsListener {
