@@ -4,7 +4,7 @@ This document details the integration steps required to integrate the Device Ris
 
 ## Latest Release
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/socure-inc/socure-sigmadevice-sdk-android)
+[![GitHub release](https://img.shields.io/github/v/release/socure-inc/socure-sigmadevice-sdk-android)](https://github.com/socure-inc/socure-sigmadevice-sdk-android/releases/latest)
 
 ## Minimum requirements
 
