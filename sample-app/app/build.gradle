@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    def device_risk_version = "4.7.0"
+    def device_risk_version = "4.7.1"
     implementation "com.socure.devicerisk.sdk:socure-devicerisk:$device_risk_version"
 
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
