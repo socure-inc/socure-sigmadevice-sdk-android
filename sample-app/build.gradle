@@ -20,7 +20,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven {url "https://sdk.socure.com/"}
+        maven { url "https://sdk.socure.com/" }
     }
 }
 
