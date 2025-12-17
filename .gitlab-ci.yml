@@ -2,7 +2,6 @@ image: registry.us-east-1.build.socure.link/platform/gitlab-runner-android-jdk11
 
 include:
   - project: 'plt/gitlab-pipeline-templates'
-    ref: 'PLT-6510'
     file: jobs/publish/blackduck-scan.gitlab-ci.yml
 
 stages:
