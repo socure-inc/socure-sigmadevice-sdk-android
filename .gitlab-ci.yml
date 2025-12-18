@@ -1,10 +1,22 @@
 image: registry.us-east-1.build.socure.link/platform/gitlab-runner-android-jdk11:173eb8f4-92730
 
+include:
+  - project: 'plt/gitlab-pipeline-templates'
+    file: jobs/publish/blackduck-scan.gitlab-ci.yml
+
+stages:
+  - build
+  - blackduck_scan
+
 variables:
 
   MEND_CONFIG_FILE: "/usr/local/share/mend-jar/wss-unified-agent.config"
   MEND_JAR: "/usr/local/share/mend-jar/wss-unified-agent.jar"
   MEND_PRODUCT_NAME: "socure-external"
+  BLACKDUCK_SCAN: "true"
+  BLACKDUCK_STRICT_SCAN: "false"
+  # Disable accuracy enforcement to avoid FAILURE_ACCURACY_NOT_MET in Detect 11.x
+  DETECT_ACCURACY_REQUIRED: "NONE"
  
 Mend-Scan:
   stage: build
