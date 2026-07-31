@@ -10,9 +10,9 @@ This document details the integration steps required to integrate the Device Ris
 
 Before getting started, check that your development environment meets the following requirements:
 
-- Target SDK 34
-- Min SDK 21
-- Kotlin 1.8.10 and later
+- Target SDK 36
+- Min SDK 23
+- Kotlin 2.1.0 and later
 - Gradle 8.0 and later
 
 ## Installation
